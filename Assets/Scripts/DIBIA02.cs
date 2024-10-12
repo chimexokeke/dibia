@@ -17,7 +17,7 @@ public class DIBIA02 : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Helloooo");
+        
         // Disable all videos and raw images initially
         foreach (VideoPlayer player in videoPlayers)
         {
