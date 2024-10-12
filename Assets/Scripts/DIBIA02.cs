@@ -45,8 +45,6 @@ public class DIBIA02 : MonoBehaviour
         
         timeRemaining -= Time.deltaTime;
         timeSlider.value = timeRemaining;
-        
-        if (timeRemaining < 0f) HandleTimeOut();
     }
 
     VideoPlayer PlayLoopingVideo(int index)
@@ -152,7 +150,13 @@ public class DIBIA02 : MonoBehaviour
         PlayLoopingVideo(2); // Play Anim02 in a loop
         ShowPrompt("CALL CHINEDU: 08132223688");
         ShowTimeSlider(15f);
-        yield return new WaitForPhoneNumber("08132223688", 15f);
+        var wait = new WaitForPhoneNumber("08132223688", 15f);
+        yield return wait;
+        if (!wait.Success)
+        {
+            HandleTimeOut();
+            yield break;
+        }
         HidePrompt();
         HideTimeSlider();
         
@@ -166,6 +170,11 @@ public class DIBIA02 : MonoBehaviour
         ShowPrompt("PRESS 5 TO SPEAK TO CHINEDU");
         ShowTimeSlider(10f);
         yield return new WaitForPhoneNumber("5", 10f);
+        if (!wait.Success) 
+        {
+            HandleTimeOut();
+            yield break;
+        }
         HidePrompt();
         HideTimeSlider();
 
@@ -175,7 +184,13 @@ public class DIBIA02 : MonoBehaviour
         PlayLoopingVideo(7);
         ShowPrompt("PRESS 19 TO PLAY WITH HIS FINGERS");
         ShowTimeSlider(7f);
-        yield return new WaitForPhoneNumber("19", 7f);
+        wait = new WaitForPhoneNumber("19", 7f);
+        yield return wait;
+        if (!wait.Success) 
+        {
+            HandleTimeOut();
+            yield break;
+        }
         HidePrompt();
         HideTimeSlider();
 
@@ -185,7 +200,13 @@ public class DIBIA02 : MonoBehaviour
         PlayLoopingVideo(9);
         ShowPrompt("PRESS 375 TO PLAY WITH HIS OTHER FINGERS");
         ShowTimeSlider(5f);
-        yield return new WaitForPhoneNumber("375", 5f);
+        wait = new WaitForPhoneNumber("375", 5f);
+        yield return wait;
+        if (!wait.Success) 
+        {
+            HandleTimeOut();
+            yield break;
+        }
         HidePrompt();
         HideTimeSlider();
 
@@ -195,7 +216,13 @@ public class DIBIA02 : MonoBehaviour
         PlayLoopingVideo(11);
         ShowPrompt("PRESS 3495 TO MASSAGE HIS FOOT");
         ShowTimeSlider(3f);
-        yield return new WaitForPhoneNumber("3495", 3f);
+        wait = new WaitForPhoneNumber("3495", 3f);
+        yield return wait;
+        if (!wait.Success) 
+        {
+            HandleTimeOut();
+            yield break;
+        }
         HidePrompt();
         HideTimeSlider();
 
@@ -205,7 +232,13 @@ public class DIBIA02 : MonoBehaviour
         PlayLoopingVideo(13);
         ShowPrompt("PRESS 0000000 TO WRAP IT UP");
         ShowTimeSlider(3f);
-        yield return new WaitForPhoneNumber("0000000", 3f);
+        wait = new WaitForPhoneNumber("0000000", 3f);
+        yield return wait;
+        if (!wait.Success) 
+        {
+            HandleTimeOut();
+            yield break;
+        }
         HidePrompt();
         HideTimeSlider();
         

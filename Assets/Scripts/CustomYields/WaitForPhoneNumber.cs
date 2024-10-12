@@ -39,6 +39,8 @@ namespace CustomYields
 
         public void Clear() => numberIndex = 0;
 
+        public bool Success => success;
+
         public float Timer => timer;
         public float CurrentTimer => CurrentTimer;
 
@@ -51,6 +53,7 @@ namespace CustomYields
                 {
                     success = false;
                     onResult?.Invoke(this);
+                    Debug.Log("TIMER EXPIRED!!!!");
                     return false;
                 }
             }
