@@ -25,12 +25,18 @@ public class DIBIA02 : MonoBehaviour
     {
         if (!isInGame)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha5)) SceneManager.LoadScene("DIBIA GAMEPLAY");
+            if (Input.GetKeyDown(KeyCode.Alpha5)) RetryGame();
             if (!isEndingGame && Input.GetKeyDown(KeyCode.Alpha0)) EndGame();
             return;
         }
         
         if (isTimerOn) TimerUpdate();
+    }
+
+    private void RetryGame()
+    {
+        HidePrompt();
+        gameCoroutine = StartCoroutine(RunGame());
     }
 
     private void TimerUpdate()
@@ -106,7 +112,6 @@ public class DIBIA02 : MonoBehaviour
 
     void HideTimeSlider()
     {
-        isTimerOn = false;
         timeSlider.gameObject.SetActive(false);
     }
     
@@ -134,15 +139,15 @@ public class DIBIA02 : MonoBehaviour
         
         HidePrompt();
 
+        yield return WaitForVideo(PlayVideo(1));
+
         gameCoroutine = StartCoroutine(RunGame());
     }
 
     IEnumerator RunGame()
     {
         isInGame = true;
-        VideoPlayer currentPlayer = PlayVideo(1);
-
-        yield return WaitForVideo(currentPlayer);
+        VideoPlayer currentPlayer;
 
         PlayLoopingVideo(2); // Play Anim02 in a loop
         ShowPrompt("CALL CHINEDU: 08132223688");
@@ -221,6 +226,7 @@ public class DIBIA02 : MonoBehaviour
         isInGame = false;
         
         StopCoroutine(gameCoroutine);
+        StopAllVideos();
         
         HideTimeSlider();
         ShowPrompt("Retry? Press 5 to retry or 0 to quit.");
@@ -236,7 +242,7 @@ public class DIBIA02 : MonoBehaviour
 
     System.Collections.IEnumerator QuitGameAfterDelay()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(2);
         Application.Quit(); // End game
     }
 }
